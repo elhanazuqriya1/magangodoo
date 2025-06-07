@@ -1,55 +1,356 @@
 <odoo>
     <template id="daftar_poli_template" name="Formulir Pendaftaran Poli">
         <t t-call="website.layout">
-            <div class="container mt-5 mb-5">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="card shadow-lg p-4 rounded">
-                            <h2 class="mb-4 text-center">Formulir Pendaftaran Poli</h2>
-                           <form action="/pendaftaranpoli/sukses" method="post">
-                              <div class="form-group mb-3">
-                                    <label for="pasien_id">Pasien</label>
-                                    <select name="pasien_id" required="1" class="form-control" id="pasienSelect">
-                                        <option value="">-- Pilih Pasien --</option>
-                                        <t t-foreach="pasien_list" t-as="pasien">
-                                            <option t-att="{'value': pasien.id, 'data-norm': pasien.no_rm}">
-                                                <t t-esc="pasien.name"/>
-                                            </option>
-                                        </t>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group mb-3">
-                                    <label for="no_rm">No RM</label>
-                                    <input type="text" id="noRmField" name="no_rm" class="form-control" readonly="1"/>
-                                </div>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap');
+                
+                /* Modern Teal Turquoise Theme */
+                :root {
+                    --primary: #009688;
+                    --primary-light: #4db6ac;
+                    --primary-dark: #00796b;
+                    --accent: #26c6da;
+                    --bg-light: #e0f7fa;
+                    --bg-white: #ffffff;
+                    --text-dark: #263238;
+                    --text-medium: #00838f;
+                    --text-light: #78909c;
+                    --border-color: #b2ebf2;
+                    --shadow: rgba(38, 198, 218, 0.15);
+                    --input-bg: rgba(224, 247, 250, 0.5);
+                    --transition: all 0.3s ease;
+                }
+                
+                body {
+                    background-color: var(--bg-light);
+                    background-image: 
+                        radial-gradient(#26c6da 0.3px, transparent 0.3px), 
+                        radial-gradient(#4db6ac 0.3px, var(--bg-light) 0.3px);
+                    background-size: 24px 24px;
+                    background-position: 0 0, 12px 12px;
+                    background-attachment: fixed;
+                    font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                    line-height: 1.6;
+                }
 
-                                <div class="form-group mb-3">
-                                    <label for="unit_id">Poli/Unit</label>
-                                    <select name="unit_id" required="1" class="form-control" id="unitSelect">
-                                        <t t-foreach="unit_list" t-as="unit">
-                                            <option t-att-value="unit.id"><t t-esc="unit.name"/></option>
-                                        </t>
-                                    </select>
-                                </div>
+                .pendaftaran-wrapper {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 40px 20px;
+                    min-height: 80vh;
+                }
 
-                                <div class="form-group mb-3">
-                                    <label for="dokter_id">Dokter</label>
-                                    <select name="dokter_id" required="1" class="form-control" id="dokterSelect">
-                                        <option value="">-- Pilih Dokter --</option>
-                                        <!-- Diisi secara dinamis oleh JavaScript -->
-                                    </select>
-                                </div>
+                .form-card {
+                    background-color: var(--bg-white);
+                    padding: 40px;
+                    border-radius: 16px;
+                    box-shadow: 0 15px 35px var(--shadow);
+                    max-width: 800px;
+                    width: 100%;
+                    position: relative;
+                    overflow: hidden;
+                    margin: 2rem auto;
+                }
 
-                                <div class="form-group mb-3">
-                                    <label for="tanggal">Tanggal</label>
-                                    <input type="date" name="tanggal" class="form-control" required="1" t-att-value="default_date"/>
-                                </div>
+                .form-card::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 6px;
+                    background: linear-gradient(90deg, var(--primary), var(--accent));
+                }
 
-                                <button type="submit" class="btn btn-primary w-100">Submit</button>
-                            </form>
+                .form-header {
+                    text-align: center;
+                    margin-bottom: 45px;
+                    position: relative;
+                    padding-bottom: 0;
+                }
+                
+                .form-header h2 {
+                    font-size: 2.4rem;
+                    font-weight: 700;
+                    background: linear-gradient(135deg, var(--primary-dark), var(--accent));
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    margin-bottom: 15px;
+                    letter-spacing: -0.5px;
+                }
+
+                .form-header::after {
+                    content: none;
+                }
+                
+                .form-subtitle {
+                    display: inline-block;
+                    color: var(--text-medium);
+                    font-size: 0.95rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 1.5px;
+                    background-color: rgba(224, 247, 250, 0.7);
+                    padding: 8px 20px;
+                    border-radius: 30px;
+                    margin-bottom: 20px;
+                    box-shadow: 0 2px 8px rgba(38, 198, 218, 0.15);
+                }
+
+                .header-divider {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto;
+                }
+                
+                .header-divider::before,
+                .header-divider::after {
+                    content: "";
+                    flex: 1;
+                    height: 2px;
+                    background: linear-gradient(90deg, transparent, var(--primary-light));
+                }
+                
+                .header-divider::after {
+                    background: linear-gradient(90deg, var(--primary-light), transparent);
+                }
+                
+                .divider-dot {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, var(--primary), var(--accent));
+                    margin: 0 10px;
+                    box-shadow: 0 0 0 3px rgba(77, 182, 172, 0.15);
+                }
+                
+                @media (max-width: 768px) {
+                    .form-card {
+                        padding: 30px 20px;
+                    }
+
+                    .form-header h2 {
+                        font-size: 1.8rem;
+                    }
+                }
+                
+                /* Animation for form elements */
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-10px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                .form-header h2 {
+                    animation: fadeIn 0.8s ease forwards;
+                }
+                
+                .form-subtitle {
+                    animation: fadeIn 0.8s 0.2s ease forwards;
+                    opacity: 0;
+                    animation-fill-mode: forwards;
+                }
+                
+                .header-divider {
+                    animation: fadeIn 0.8s 0.4s ease forwards;
+                    opacity: 0;
+                    animation-fill-mode: forwards;
+                }
+
+                .form-group {
+                    margin-bottom: 25px;
+                    position: relative;
+                    animation: fadeInUp 0.5s ease forwards;
+                    opacity: 0;
+                }
+                
+                .form-group:nth-child(1) { animation-delay: 0.1s; }
+                .form-group:nth-child(2) { animation-delay: 0.2s; }
+                .form-group:nth-child(3) { animation-delay: 0.3s; }
+                .form-group:nth-child(4) { animation-delay: 0.4s; }
+                .form-group:nth-child(5) { animation-delay: 0.5s; }
+
+                .form-group label {
+                    font-size: 0.95rem;
+                    color: var(--text-medium);
+                    margin-bottom: 8px;
+                    display: block;
+                    font-weight: 600;
+                    transition: color 0.3s ease;
+                }
+
+                .form-control {
+                    width: 100%;
+                    padding: 14px 16px;
+                    border-radius: 10px;
+                    border: 1px solid var(--border-color);
+                    background-color: var(--input-bg);
+                    font-size: 1rem;
+                    color: var(--text-dark);
+                    transition: var(--transition);
+                    font-family: 'Poppins', sans-serif;
+                }
+
+                .form-control:hover {
+                    background-color: rgba(224, 247, 250, 0.7);
+                }
+
+                .form-control:focus {
+                    border-color: var(--primary);
+                    box-shadow: 0 0 0 3px rgba(38, 198, 218, 0.25);
+                    outline: none;
+                    background-color: var(--bg-white);
+                }
+
+                .form-control[readonly] {
+                    background-color: rgba(224, 247, 250, 0.3);
+                    border-color: #cceef2;
+                    cursor: not-allowed;
+                    color: var(--text-light);
+                }
+
+                select.form-control {
+                    appearance: none;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%2300838f' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-position: right 15px center;
+                    background-size: 16px;
+                    padding-right: 40px;
+                }
+                
+                .required-field label::after {
+                    content: " *";
+                    color: #f44336;
+                    font-weight: bold;
+                }
+
+                .btn-submit {
+                    background: linear-gradient(45deg, var(--primary), var(--accent));
+                    color: white;
+                    padding: 14px 20px;
+                    border: none;
+                    border-radius: 10px;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    width: 100%;
+                    cursor: pointer;
+                    transition: var(--transition);
+                    box-shadow: 0 4px 10px rgba(38, 198, 218, 0.3);
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 15px;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    animation: fadeInUp 0.5s ease forwards;
+                    animation-delay: 0.6s;
+                    opacity: 0;
+                }
+
+                .btn-submit:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 15px rgba(38, 198, 218, 0.4);
+                    background: linear-gradient(45deg, var(--accent), var(--primary));
+                }
+
+                .btn-submit:active {
+                    transform: translateY(0);
+                }
+
+                .btn-submit::after {
+                    content: "→";
+                    margin-left: 10px;
+                    font-size: 1.2rem;
+                    transition: transform 0.3s ease;
+                }
+
+                .btn-submit:hover::after {
+                    transform: translateX(5px);
+                }
+
+                /* Responsive adjustments */
+                @media (max-width: 768px) {
+                    .form-card {
+                        padding: 30px 20px;
+                    }
+
+                    .form-header h2 {
+                        font-size: 1.8rem;
+                    }
+                }
+            </style>
+            
+            <div class="pendaftaran-wrapper">
+                <div class="form-card">
+                    <div class="form-header">
+                        <h2>Formulir Pendaftaran Poli</h2>
+                        <p class="form-subtitle">DATA PASIEN</p>
+                        <div class="header-divider">
+                            <div class="divider-dot"></div>
                         </div>
                     </div>
+                    
+                    <form action="/pendaftaranpoli/sukses" method="post">
+                        <div class="form-group required-field">
+                            <label for="pasien_id">Pasien</label>
+                            <select name="pasien_id" required="1" class="form-control" id="pasienSelect">
+                                <option value="">-- Pilih Pasien --</option>
+                                <t t-foreach="pasien_list" t-as="pasien">
+                                    <option t-att="{'value': pasien.id, 'data-norm': pasien.no_rm}">
+                                        <t t-esc="pasien.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="no_rm">No RM</label>
+                            <input type="text" id="noRmField" name="no_rm" class="form-control" readonly="1"/>
+                        </div>
+
+                        <div class="form-group required-field">
+                            <label for="unit_id">Poli/Unit</label>
+                            <select name="unit_id" required="1" class="form-control" id="unitSelect">
+                                <t t-foreach="unit_list" t-as="unit">
+                                    <option t-att-value="unit.id"><t t-esc="unit.name"/></option>
+                                </t>
+                            </select>
+                        </div>
+
+                        <div class="form-group required-field">
+                            <label for="dokter_id">Dokter</label>
+                            <select name="dokter_id" required="1" class="form-control" id="dokterSelect">
+                                <option value="">-- Pilih Dokter --</option>
+                                <!-- Diisi secara dinamis oleh JavaScript -->
+                            </select>
+                        </div>
+
+                        <div class="form-group required-field">
+                            <label for="tanggal">Tanggal</label>
+                            <input type="date" name="tanggal" class="form-control" required="1" t-att-value="default_date"/>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Daftar Sekarang</button>
+                    </form>
                 </div>
             </div>
 
@@ -63,13 +364,25 @@
 
                     // Tampilkan No RM otomatis
                     pasienSelect.addEventListener('change', function () {
-                        const selectedOption = pasienSelect.options[pasienSelect.selectedIndex];
-                        noRmField.value = selectedOption.getAttribute('data-norm');
+                        const pilihanTerpilih = pasienSelect.options[pasienSelect.selectedIndex];
+                        noRmField.value = pilihanTerpilih.getAttribute('data-norm');
+                        
+                        // Tambahkan efek animasi saat berubah
+                        noRmField.style.transition = 'background-color 0.3s ease';
+                        noRmField.style.backgroundColor = 'rgba(224, 247, 250, 0.8)';
+                        setTimeout(() => {
+                            noRmField.style.backgroundColor = 'rgba(224, 247, 250, 0.3)';
+                        }, 500);
                     });
 
-                    // Load dokter ketika unit dipilih
+                    // Muat dokter ketika unit dipilih
                     unitSelect.addEventListener('change', function () {
                         const unitId = unitSelect.value;
+                        
+                        // Tambahkan status loading ke pilihan dokter
+                        dokterSelect.disabled = true;
+                        dokterSelect.style.opacity = '0.7';
+                        
                         fetch(`/get_dokter_by_unit/${unitId}`)
                             .then(response => response.json())
                             .then(data => {
@@ -84,16 +397,50 @@
                                         dokterSelect.appendChild(opt);
                                     });
                                 }
+                                
+                                // Hapus status loading
+                                dokterSelect.disabled = false;
+                                dokterSelect.style.opacity = '1';
+                                
+                                // Tambahkan animasi sorotan
+                                dokterSelect.style.transition = 'box-shadow 0.3s ease';
+                                dokterSelect.style.boxShadow = '0 0 0 3px rgba(38, 198, 218, 0.25)';
+                                setTimeout(() => {
+                                    dokterSelect.style.boxShadow = 'none';
+                                }, 800);
                             });
                     });
 
-                    // Inisialisasi No RM saat load
-                    const selectedPasien = pasienSelect.options[pasienSelect.selectedIndex];
-                    if (selectedPasien) {
-                        noRmField.value = selectedPasien.getAttribute('data-norm');
+                    // Inisialisasi No RM saat muat halaman
+                    const pasienTerpilih = pasienSelect.options[pasienSelect.selectedIndex];
+                    if (pasienTerpilih) {
+                        noRmField.value = pasienTerpilih.getAttribute('data-norm');
                     }
-                    // ✅ Trigger event change pada unit agar dokter langsung muncul saat page load
+                    
+                    // Picu event change pada unit agar dokter langsung muncul saat page load
                     unitSelect.dispatchEvent(new Event('change'));
+                    
+                    // Tambahkan validasi form
+                    const form = document.querySelector('form');
+                    form.addEventListener('submit', function(e) {
+                        const bidangWajib = form.querySelectorAll('[required]');
+                        let isValid = true;
+                        
+                        bidangWajib.forEach(field => {
+                            if (!field.value) {
+                                isValid = false;
+                                field.style.borderColor = '#f44336';
+                                field.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.25)';
+                            } else {
+                                field.style.borderColor = '#4db6ac';
+                                field.style.boxShadow = '0 0 0 3px rgba(38, 198, 218, 0.1)';
+                            }
+                        });
+                        
+                        if (!isValid) {
+                            e.preventDefault();
+                        }
+                    });
                 });
             </script>
         </t>
