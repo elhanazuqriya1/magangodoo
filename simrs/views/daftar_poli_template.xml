@@ -7,9 +7,10 @@
                         <div class="card shadow-lg p-4 rounded">
                             <h2 class="mb-4 text-center">Formulir Pendaftaran Poli</h2>
                            <form action="/pendaftaranpoli/sukses" method="post">
-                                <div class="form-group mb-3">
+                              <div class="form-group mb-3">
                                     <label for="pasien_id">Pasien</label>
                                     <select name="pasien_id" required="1" class="form-control" id="pasienSelect">
+                                        <option value="">-- Pilih Pasien --</option>
                                         <t t-foreach="pasien_list" t-as="pasien">
                                             <option t-att="{'value': pasien.id, 'data-norm': pasien.no_rm}">
                                                 <t t-esc="pasien.name"/>
@@ -91,6 +92,8 @@
                     if (selectedPasien) {
                         noRmField.value = selectedPasien.getAttribute('data-norm');
                     }
+                    // ✅ Trigger event change pada unit agar dokter langsung muncul saat page load
+                    unitSelect.dispatchEvent(new Event('change'));
                 });
             </script>
         </t>
