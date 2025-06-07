@@ -13,7 +13,7 @@
                             <p><strong>Tanggal:</strong> <t t-esc="pendaftaran.tanggal.strftime('%d-%m-%Y')"/></p>
                             <p><strong>Nomor Antrian:</strong> <t t-esc="pendaftaran.nomor_antrian"/></p>
                             <p><strong>Nomor Pendaftaran:</strong> <t t-esc="pendaftaran.name"/></p>
-                            <a href="/daftar_poli" class="btn btn-primary mt-3">Kembali ke Formulir</a>
+                            <a href="/pendaftaranpoli" class="btn btn-primary mt-3">Kembali ke Formulir</a>
                         </div>
                     </div>
                 </div>
