@@ -1,0 +1,70 @@
+/* styles.css */
+
+/* Gaya untuk halaman landing */
+.landing-page {
+    background-color: rgba(255, 255, 255, 0.8); /* Transparan */
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.landing-page h1 {
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 16px;
+}
+
+.landing-page p {
+    color: #666;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.landing-page .btn {
+    background-color: #ffcc00; /* Warna tombol */
+    color: #fff; /* Warna teks tombol */
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.landing-page .btn:hover {
+    background-color: #e6b800; /* Warna tombol saat hover */
+}
+
+
+/* Gaya untuk halaman pendaftaran */
+.pendaftaran-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.pendaftaran-form h1 {
+    color: #333;
+}
+
+.pendaftaran-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.pendaftaran-form input,
+.pendaftaran-form select,
+.pendaftaran-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.pendaftaran-form .btn {
+    width: auto; /* Atur lebar tombol */
+}

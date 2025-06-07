@@ -1,0 +1,8 @@
+<odoo>
+    <record id="seq_pendaftaran" model="ir.sequence">
+        <field name="name">Sequence Pendaftaran</field>
+        <field name="code">simrs.pendaftaran</field>
+        <field name="prefix">PEN</field>
+        <field name="padding">5</field>
+    </record>
+</odoo>

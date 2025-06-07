@@ -1,0 +1,48 @@
+/* Mengatur warna latar belakang untuk halaman login */
+body {
+    background-color: #f0f0f0; /* Ganti dengan warna latar belakang yang diinginkan */
+}
+
+/* Mengatur gaya font pada judul */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Arial', sans-serif; /* Ganti sesuai dengan font yang diinginkan */
+    color: #333; /* Warna teks judul */
+}
+
+/* Mengatur tombol masuk */
+.btn-primary {
+    background-color: #1c7ed6; /* Ganti dengan warna aksen tombol */
+    border-color: #1c7ed6;
+}
+
+/* Mengatur warna teks pada tombol */
+.btn-primary:hover {
+    background-color: #1864ab; /* Ganti dengan warna aksen hover */
+    border-color: #1864ab;
+}
+
+/* Mengatur teks untuk label dan placeholder */
+label, input::placeholder {
+    color: #6c757d; /* Sesuaikan dengan warna teks yang diinginkan */
+}
+
+/* Mengatur gaya untuk link */
+a {
+    color: #1c7ed6; /* Ganti dengan warna aksen untuk link */
+}
+
+a:hover {
+    color: #1864ab; /* Ganti dengan warna aksen hover untuk link */
+}
+
+/* Mengatur box untuk form login */
+.form-login {
+    background-color: #ffffff; /* Warna background form */
+    border-radius: 10px; /* Gaya sudut box */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Bayangan box */
+}
+
+/* Mengatur gaya untuk footer */
+.footer {
+    color: #999; /* Warna footer */
+}

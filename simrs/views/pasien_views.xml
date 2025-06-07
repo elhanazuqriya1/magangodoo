@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pasien_tree" model="ir.ui.view">
+        <field name="name">simrs.pasien.tree</field>
+        <field name="model">simrs.pasien</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="no_rm"/>
+                <field name="tempat_lahir"/>  <!-- Added field for Place of Birth -->
+                <field name="dob"/>
+                <field name="gender"/>
+                <field name="age"/>
+                <field name="goldar"/>
+                <field name="phone"/>
+                <field name="alamat"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_pasien_form" model="ir.ui.view">
+        <field name="name">simrs.pasien.form</field>
+        <field name="model">simrs.pasien</field>
+        <field name="arch" type="xml">
+            <form string="Data Pasien">
+                <header>
+                    <button name="%(simrs.pendaftaran_pdf_report)d"
+                            string="Cetak Bukti Pendaftaran"
+                            type="action"
+                            class="btn-primary"/>
+                </header>
+                <group>
+                    <field name="name"/>
+                    <field name="no_rm" readonly="1"/>
+                    <field name="tempat_lahir"/>  <!-- Added field for Place of Birth -->
+                    <field name="dob"/>
+                    <field name="gender"/>
+                    <field name="age"/>
+                    <field name="goldar"/>
+                    <field name="phone"/>
+                    <field name="alamat"/>
+                </group>
+                <group>
+                    <field name="datetime_indonesia" readonly="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pasien" model="ir.actions.act_window">
+        <field name="name">Pasien</field>
+        <field name="res_model">simrs.pasien</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

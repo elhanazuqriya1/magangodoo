@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_unit,access_unit,model_simrs_unit,,1,1,1,1
+access_diagnosa,access_diagnosa,model_simrs_diagnosa,,1,1,1,1
+access_dokter,access_dokter,model_simrs_dokter,,1,1,1,1
+access_pendaftaran,access_pendaftaran,model_simrs_pendaftaran,,1,1,1,1
+access_pasien,access_pasien,model_simrs_pasien,,1,1,1,1
+access_tindakan,access_tindakan,model_simrs_tindakan,,1,1,1,1
+access_icd10,access_icd10,model_simrs_icd10,,1,1,1,1
+access_icd9,access_icd9,model_simrs_icd9,,1,1,1,1
+
+
+

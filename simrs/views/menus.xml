@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_simrs_root" name="SIMRS" sequence="10"/>
+
+    <!-- Master Data Section -->
+    <menuitem id="menu_master_data" name="Master Data" parent="menu_simrs_root"/>
+
+    <menuitem id="menu_unit" name="Unit/Poli" parent="menu_master_data" action="action_unit"/>
+    <menuitem id="menu_diagnosa" name="Diagnosa" parent="menu_master_data" action="action_diagnosa"/>
+    <menuitem id="menu_dokter" name="Dokter" parent="menu_master_data" action="action_dokter"/>
+
+    <!-- Menu ICD-10 -->
+    <menuitem id="menu_icd10" name="ICD-10" parent="menu_master_data" action="action_icd10"/>
+
+    <!-- ✅ Tambahan FIX ICD-9 Menu + Action -->
+    <record id="action_icd9" model="ir.actions.act_window">
+        <field name="name">ICD-9 Diagnosa</field>
+        <field name="res_model">simrs.icd9</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Belum ada data ICD-9.</p>
+            <p>Silakan impor data ICD-9 dari file XLSX.</p>
+        </field>
+    </record>
+    <menuitem id="menu_icd9" name="ICD-9" parent="menu_master_data" action="action_icd9"/>
+
+    <!-- Pendaftaran Section -->
+    <menuitem id="menu_pendaftaran" name="Pendaftaran" parent="menu_simrs_root"/>
+    <menuitem id="menu_pendaftaran_poli" name="Pendaftaran Poli" parent="menu_pendaftaran" action="action_pendaftaran"/>
+    <menuitem id="menu_pasien" name="Data Pasien" parent="menu_pendaftaran" action="action_pasien"/>
+
+    <!-- Tindakan Section -->
+    <menuitem id="menu_tindakan" name="Tindakan" parent="menu_simrs_root"/>
+    <menuitem id="menu_tindakan_record" name="Rekam Tindakan" parent="menu_tindakan" action="action_tindakan"/>
+
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_icd10_tree" model="ir.ui.view">
+        <field name="name">simrs.icd10.tree</field>
+        <field name="model">simrs.icd10</field>
+        <field name="arch" type="xml">
+            <tree string="Daftar Kode Diagnosa ICD-10">
+                <field name="icd10_code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_icd10_form" model="ir.ui.view">
+        <field name="name">simrs.icd10.form</field>
+        <field name="model">simrs.icd10</field>
+        <field name="arch" type="xml">
+            <form string="ICD-10 Diagnosa">
+                <sheet>
+                    <group>
+                        <field name="icd10_code"/>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <separator string="Import dari File XLSX" colspan="2"/>
+                        <field name="file_data"/>
+                        <button name="import_xls"
+                                type="object"
+                                string="Import ICD-10"
+                                class="btn-primary"
+                                icon="fa-upload"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_icd10" model="ir.actions.act_window">
+        <field name="name">Import ICD-10</field>
+        <field name="res_model">simrs.icd10</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_icd10_root" name="Master Data"/>
+    <menuitem id="menu_icd10" name="Import ICD-10" parent="menu_icd10_root" action="action_icd10"/>
+</odoo>

@@ -1,0 +1,39 @@
+<odoo>
+    <record id="view_tindakan_tree" model="ir.ui.view">
+        <field name="name">simrs.tindakan.tree</field>
+        <field name="model">simrs.tindakan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="pasien_id"/>
+                <field name="unit_id"/>
+                <field name="diagnosa_id"/>
+                <field name="dokter_id"/>
+                <field name="tindakan_id"/>
+                <field name="catatan_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_tindakan_form" model="ir.ui.view">
+        <field name="name">simrs.tindakan.form</field>
+        <field name="model">simrs.tindakan</field>
+        <field name="arch" type="xml">
+            <form string="Prosedur">
+                <group>
+                    <field name="pasien_id"/>
+                    <field name="unit_id"/>
+                    <field name="diagnosa_id"/>
+                    <field name="dokter_id"/>
+                    <field name="tindakan_id"/>
+                    <field name="catatan_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_tindakan" model="ir.actions.act_window">
+        <field name="name">Tindakan</field>
+        <field name="res_model">simrs.tindakan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

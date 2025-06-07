@@ -1,0 +1,89 @@
+<odoo>
+    <template id="landing_page_template" name="Landing Page">
+        <t t-call="website.layout">
+            <div class="header" style="background-color: #008080; color: white; padding: 60px 0; text-align: center;">
+                <h1 style="color: white; font-size: 2.5em; font-weight: bold; margin-bottom: 15px;">Sistem Informasi Manajemen Rumah Sakit (SIMRS)</h1>
+                <p style="font-size: 1.2em; margin-bottom: 25px;">Solusi Terintegrasi untuk Manajemen Rumah Sakit Anda</p>
+                <div style="display: inline-flex; gap: 15px; justify-content:center;">
+                    <a href="/pendaftaran" class="btn btn-warning" style="background-color: #f5b800; border-color: #f5b800; color: #222222; font-weight: 700; padding: 10px 20px; font-size: 1.1em; white-space: nowrap;">Pendaftaran Pasien</a>
+                    <a href="/pendaftaranpoli" class="btn btn-warning" style="background-color: #f5b800; border-color: #f5b800; color: #222222; font-weight: 700; padding: 10px 20px; font-size: 1.1em; white-space: nowrap;">Pendaftaran Poli</a>
+                </div>
+            </div>
+
+            <div class="container text-center my-5">
+                <h2 style="color: #008080;">Tentang Modul</h2>
+                <p style="font-size: 1.1em;">SIMRS adalah modul Odoo yang dirancang untuk mempermudah manajemen data rumah sakit, termasuk pasien, dokter, tindakan medis, diagnosa, dan pendaftaran.</p>
+            </div>
+
+            <div class="container">
+                <h2 class="text-center" style="color: #008080;">Fitur Utama</h2>
+                <div class="row">
+                    <div class="col-md-4 feature">
+                        <img src="/simrs/static/src/img/pasien_icon.png" alt="Manajemen Pasien" class="img-fluid mb-3" style="width: 60px; height: 60px;"/>
+                        <h4 style="color: #008080;">Manajemen Pasien</h4>
+                        <p>Pendaftaran pasien baru dengan data lengkap dan riwayat medis yang mudah diakses.</p>
+                    </div>
+                    <div class="col-md-4 feature">
+                        <img src="/simrs/static/src/img/dokter_icon.png" alt="Manajemen Dokter" class="img-fluid mb-3" style="width: 60px; height: 60px;"/>
+                        <h4 style="color: #008080;">Manajemen Dokter</h4>
+                        <p>Data dokter dan spesialisasi yang terorganisir dengan penjadwalan yang efisien.</p>
+                    </div>
+                    <div class="col-md-4 feature">
+                        <img src="/simrs/static/src/img/tindakan_icon.png" alt="Tindakan Medis" class="img-fluid mb-3" style="width: 60px; height: 60px;"/>
+                        <h4 style="color: #008080;">Tindakan Medis</h4>
+                        <p>Pencatatan tindakan medis dengan integrasi kode ICD-10 dan ICD-9.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 feature">
+                        <img src="/simrs/static/src/img/pendaftaran_icon.png" alt="Pendaftaran" class="img-fluid mb-3" style="width: 60px; height: 60px;"/>
+                        <h4 style="color: #008080;">Pendaftaran</h4>
+                        <p>Sistem antrian otomatis berdasarkan kode unit dan pencatatan tanggal pendaftaran.</p>
+                    </div>
+                    <div class="col-md-4 feature">
+                        <img src="/simrs/static/src/img/diagnosa_icon.png" alt="Diagnosa" class="img-fluid mb-3" style="width: 60px; height: 60px;"/>
+                        <h4 style="color: #008080;">Diagnosa</h4>
+                        <p>Pengelolaan data diagnosa dengan kode ICD-10 dan fasilitas impor data dari XLSX.</p>
+                    </div>
+                    <div class="col-md-4 feature">
+                        <img src="/simrs/static/src/img/unit_icon.png" alt="Unit/Poli" class="img-fluid mb-3" style="width: 60px; height: 60px;"/>
+                        <h4 style="color: #008080;">Unit/Poli</h4>
+                        <p>Manajemen unit atau poli rumah sakit dengan kode unik untuk setiap unit.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container text-center my-5">
+                <h2 style="color: #008080;">Keunggulan</h2>
+                <ul class="list-unstyled" style="font-size: 1.1em;">
+                    <li>Integrasi Mudah dengan sistem Odoo lainnya.</li>
+                    <li>Akses Data Real-Time kapan saja dan di mana saja.</li>
+                    <li>Keamanan Data yang kuat untuk melindungi informasi sensitif pasien.</li>
+                </ul>
+            </div>
+
+            <div class="container text-center my-5">
+                <h2 style="color: #008080;">Testimoni</h2>
+                <blockquote class="blockquote" style="font-size: 1.1em;">
+                    <p class="mb-0">"SIMRS telah mengubah cara kami mengelola data pasien. Sangat efisien dan mudah digunakan!"</p>
+                    <footer class="blockquote-footer">Dr. Andi, Spesialis Jantung</footer>
+                </blockquote>
+                <blockquote class="blockquote" style="font-size: 1.1em;">
+                    <p class="mb-0">"Dengan SIMRS, kami dapat mengelola semua aspek rumah sakit dalam satu platform."</p>
+                    <footer class="blockquote-footer">Ibu Siti, Manajer Rumah Sakit</footer>
+                </blockquote>
+            </div>
+
+            <div class="container text-center my-5">
+                <h2 style="color: #008080;">Bergabunglah dengan Kami!</h2>
+                <a href="#" class="btn btn-primary" style="background-color: #008080; border-color: #008080; color: white; padding: 10px 20px; font-size: 1.1em;">Daftar Sekarang</a>
+                <a href="#" class="btn btn-secondary" style="background-color: #f5b800; border-color: #f5b800; color: #222222; padding: 10px 20px; font-size: 1.1em;">Pelajari Lebih Lanjut</a>
+            </div>
+
+            <div class="footer" style="background-color: #e0f7f7; padding: 20px 0; text-align: center;">
+                <p style="color: #008080;">Kontak: support@simrs.com | Telepon: (021) 123-4567</p>
+                <p style="color: #008080;">Sosial Media: [Facebook] | [Twitter] | [LinkedIn]</p>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pendaftaran_pdf_report" model="ir.actions.report">
+            <field name="name">Bukti Pendaftaran Pasien</field>
+            <field name="model">simrs.pasien</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">simrs.report_pendaftaran_pdf</field>
+            <field name="report_file">simrs.report_pendaftaran_pdf</field>
+            <field name="print_report_name">'Bukti_Pendaftaran_%s' % (object.no_rm)</field>
+            <field name="binding_model_id" ref="model_simrs_pasien"/>
+        </record>
+
+        <template id="report_pendaftaran_pdf">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="pasien">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2 class="text-center mb-4">Bukti Pendaftaran Pasien</h2>
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td width="30%"><strong>Nomor RM</strong></td>
+                                            <td width="2%">:</td>
+                                            <td><span t-field="pasien.no_rm"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Nama Pasien</strong></td>
+                                            <td>:</td>
+                                            <td><span t-field="pasien.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Tanggal Lahir</strong></td>
+                                            <td>:</td>
+                                            <td><span t-field="pasien.dob"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Jenis Kelamin</strong></td>
+                                            <td>:</td>
+                                            <td>
+                                                <t t-if="pasien.gender == 'male'">Laki-laki</t>
+                                                <t t-if="pasien.gender == 'female'">Perempuan</t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Golongan Darah</strong></td>
+                                            <td>:</td>
+                                            <td><span t-field="pasien.goldar"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>No. Telepon</strong></td>
+                                            <td>:</td>
+                                            <td><span t-field="pasien.phone"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Alamat</strong></td>
+                                            <td>:</td>
+                                            <td><span t-field="pasien.alamat"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-12 text-right">
+                                    <p>Dicetak pada: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y %H:%M:%S')"/></p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

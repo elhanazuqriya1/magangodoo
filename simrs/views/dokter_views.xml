@@ -1,0 +1,33 @@
+<odoo>
+    <record id="view_dokter_tree" model="ir.ui.view">
+        <field name="name">simrs.dokter.tree</field>
+        <field name="model">simrs.dokter</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="spesialis"/>
+                <field name="unit_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_dokter_form" model="ir.ui.view">
+        <field name="name">simrs.dokter.form</field>
+        <field name="model">simrs.dokter</field>
+        <field name="arch" type="xml">
+            <form string="Dokter">
+                <group>
+                    <field name="name"/>
+                    <field name="spesialis"/>
+                    <field name="unit_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dokter" model="ir.actions.act_window">
+        <field name="name">Dokter</field>
+        <field name="res_model">simrs.dokter</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

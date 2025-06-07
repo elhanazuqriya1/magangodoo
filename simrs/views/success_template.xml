@@ -1,0 +1,234 @@
+<odoo>
+    <template id="success_template">
+        <div class="rs-success-container">
+            <div class="rs-success-card">
+                <div class="rs-header">
+                    <img src="/simrs/static/src/img/kemenkes.webp" alt="Logo Rumah Sakit" class="rs-logo"/>
+                    <h2>Terima Kasih, Pendaftaran Pasien Berhasil!</h2>
+                    <p class="rs-subtitle">Data pasien Anda telah tercatat di sistem kami.</p>
+                </div>
+                <div class="rs-patient-info">
+                    <div class="rs-info-row">
+                        <span class="rs-label">Nama Pasien</span>
+                        <span class="rs-value"><t t-esc="pasien_name"/></span>
+                    </div>
+                    <div class="rs-info-row">
+                        <span class="rs-label">No Rekam Medis</span>
+                        <span class="rs-value"><t t-esc="no_rm"/></span>
+                    </div>
+                    <div class="rs-info-row">
+                        <span class="rs-label">Tempat Lahir</span>
+                        <span class="rs-value"><t t-esc="tempat_lahir"/></span>
+                    </div>
+                    <div class="rs-info-row">
+                        <span class="rs-label">Tanggal Lahir</span>
+                        <t t-set="month_names" t-value="['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']"/>
+                        <span class="rs-value"><t t-esc="'{:02d}'.format(pasien_dob.day)"/> <t t-esc="month_names[pasien_dob.month]"/> <t t-esc="pasien_dob.year"/></span>
+                    </div>
+                    <div class="rs-info-row">
+                        <span class="rs-label">Umur</span>
+                        <span class="rs-value"><t t-esc="pasien_age_detail"/></span>
+                    </div>
+                    <div class="rs-info-row">
+                        <span class="rs-label">Jenis Kelamin</span>
+                        <span class="rs-value">
+                            <t t-esc="pasien_gender == 'male' and 'Laki-Laki' or pasien_gender == 'female' and 'Perempuan'"/>
+                        </span>
+                    </div>
+                    <div class="rs-info-row">
+                        <span class="rs-label">Tanggal Pendaftaran</span>
+                        <span class="rs-value"><t t-esc="datetime_indonesia"/></span>
+                    </div>
+                </div>
+                <a href="/pendaftaran" class="rs-btn-back">
+                    <span class="material-icons" style="vertical-align: middle;">arrow_back</span>
+                    Kembali ke Formulir Pendaftaran
+                </a>
+                <div class="rs-animasi-check">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="checkmark-check" fill="none" d="M14 27l7 7 16-16"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <style>
+            @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+            body, .rs-success-container {
+                font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+                background: #e0f7fa; /* Light teal background */
+                min-height: 100vh;
+                margin: 0;
+                padding: 0;
+            }
+            .rs-success-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+            }
+            .rs-success-card {
+                background: #ffffff;
+                border-radius: 20px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+                max-width: 430px;
+                width: 100%;
+                padding: 38px 28px;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                overflow: hidden;
+                animation: fadeInUp 0.7s cubic-bezier(.39,.575,.56,1.000);
+                border: 2px solid #00796b; /* Teal border */
+            }
+            @keyframes fadeInUp {
+                0% { opacity: 0; transform: translateY(40px);}
+                100% { opacity: 1; transform: translateY(0);}
+            }
+            .rs-header {
+                text-align: center;
+                margin-bottom: 24px;
+            }
+            .rs-logo {
+                width: 70px;
+                height: 70px;
+                object-fit: contain;
+                margin-bottom: 14px;
+                border-radius: 50%;
+                border: 2px solid #00796b; /* Teal border */
+                background: #ffffff;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            }
+            .rs-header h2 {
+                color: #00796b; /* Teal color */
+                font-size: 1.7rem;
+                margin-bottom: 8px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+            }
+            .rs-subtitle {
+                color: #004d40; /* Darker teal */
+                font-size: 1.05rem;
+                margin-bottom: 0;
+            }
+            .rs-patient-info {
+                width: 100%;
+                margin-bottom: 24px;
+                background: #f1f8e9; /* Light greenish background */
+                border-radius: 12px;
+                padding: 18px 12px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                border: 1.5px solid #004d40; /* Darker teal */
+            }
+            .rs-info-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 0;
+                border-bottom: 1px solid #e0e6ed;
+                transition: background 0.2s;
+            }
+            .rs-info-row:hover {
+                background: #e0f2f1; /* Light teal on hover */
+            }
+            .rs-info-row:last-child {
+                border-bottom: none;
+            }
+            .rs-label {
+                color: #00796b; /* Teal color */
+                font-weight: 500;
+                font-size: 1rem;
+            }
+            .rs-value {
+                color: #004d40; /* Darker teal */
+                font-weight: 600;
+                font-size: 1rem;
+                text-align: right;
+                max-width: 60%;
+                word-break: break-word;
+            }
+            .rs-btn-back {
+                display: inline-block;
+                background: #00796b; /* Teal button */
+                color: #ffffff;
+                padding: 12px 32px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 1rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+                margin-top: 8px;
+                margin-bottom: 8px;
+                text-align: center;
+            }
+            .rs-btn-back:hover {
+                background: #004d40; /* Darker teal on hover */
+                color: #ffffff;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+            }
+            .rs-animasi-check {
+                position: absolute;
+                top: -30px;
+                right: -30px;
+                width: 80px;
+                height: 80px;
+                z-index: 2;
+                pointer-events: none;
+            }
+            .checkmark {
+                width: 80px;
+                height: 80px;
+                display: block;
+            }
+            .checkmark-circle {
+                stroke: #00796b; /* Teal color */
+                stroke-width: 3;
+                stroke-dasharray: 166;
+                stroke-dashoffset: 166;
+                animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+            }
+            .checkmark-check {
+                stroke: #00796b; /* Teal color */
+                stroke-width: 3;
+                stroke-linecap: round;
+                stroke-dasharray: 48;
+                stroke-dashoffset: 48;
+                animation: stroke 0.4s 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+            }
+            @keyframes stroke {
+                100% {
+                    stroke-dashoffset: 0;
+                }
+            }
+            @media (max-width: 600px) {
+                .rs-success-card {
+                    padding: 18px 6px 12px 6px;
+                }
+                .rs-header h2 {
+                    font-size: 1.3rem;
+                }
+                .rs-label, .rs-value {
+                    font-size: 0.95rem;
+                }
+                .rs-btn-back {
+                    width: 100%;
+                    padding: 10px 0;
+                    font-size: 0.95rem;
+                }
+                .rs-animasi-check {
+                    width: 60px;
+                    height: 60px;
+                    top: -20px;
+                    right: -20px;
+                }
+                .checkmark {
+                    width: 60px;
+                    height: 60px;
+                }
+            }
+        </style>
+    </template>
+</odoo>
