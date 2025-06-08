@@ -5,13 +5,14 @@
             <field name="name">Bukti Pendaftaran Pasien</field>
             <field name="model">simrs.pasien</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">simrs.report_pendaftaran_pdf</field>
-            <field name="report_file">simrs.report_pendaftaran_pdf</field>
+            <field name="report_name">simrs.report_pendaftaran_pdf_template</field>
+            <field name="report_file">simrs.report_pendaftaran_pdf_template</field>
             <field name="print_report_name">'Bukti_Pendaftaran_%s' % (object.no_rm)</field>
             <field name="binding_model_id" ref="model_simrs_pasien"/>
+            <field name="binding_type">report</field>
         </record>
 
-        <template id="report_pendaftaran_pdf">
+        <template id="report_pendaftaran_pdf_template">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="pasien">
                     <t t-call="web.external_layout">
@@ -38,32 +39,19 @@
                                         <tr>
                                             <td><strong>Jenis Kelamin</strong></td>
                                             <td>:</td>
-                                            <td>
-                                                <t t-if="pasien.gender == 'male'">Laki-laki</t>
-                                                <t t-if="pasien.gender == 'female'">Perempuan</t>
-                                            </td>
+                                            <td><span t-field="pasien.gender"/></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Golongan Darah</strong></td>
+                                            <td><strong>Tanggal Pendaftaran</strong></td>
                                             <td>:</td>
-                                            <td><span t-field="pasien.goldar"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>No. Telepon</strong></td>
-                                            <td>:</td>
-                                            <td><span t-field="pasien.phone"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Alamat</strong></td>
-                                            <td>:</td>
-                                            <td><span t-field="pasien.alamat"/></td>
+                                            <td><span t-field="pasien.create_date"/></td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
-                            <div class="row mt-5">
-                                <div class="col-12 text-right">
-                                    <p>Dicetak pada: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y %H:%M:%S')"/></p>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="text-muted"><i>* Harap simpan bukti pendaftaran ini dan tunjukkan saat berobat</i></p>
                                 </div>
                             </div>
                         </div>
