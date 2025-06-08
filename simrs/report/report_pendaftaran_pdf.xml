@@ -17,14 +17,40 @@
                 <t t-foreach="docs" t-as="pasien">
                     <t t-call="web.external_layout">
                         <div class="page">
-                            <h2 class="text-center mb-4">Bukti Pendaftaran Pasien</h2>
+                            <!-- Header with logo and timestamp -->
                             <div class="row mb-4">
+                                <div class="col-6">
+                                    <h3 class="mt-2"><strong>BUKTI PENDAFTARAN PASIEN</strong></h3>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <small>No. Registrasi: <strong><span t-field="pasien.no_rm"/></strong></small><br/>
+                                    <small>Tanggal: <span t-field="pasien.create_date" t-options='{"format": "dd/MM/yyyy"}'/></small><br/>
+                                    <small>Waktu: <span t-field="pasien.create_date" t-options='{"format": "HH:mm:ss"}'/></small>
+                                </div>
+                            </div>
+                            
+                            <!-- Divider -->
+                            <div class="row">
                                 <div class="col-12">
-                                    <table class="table table-sm">
-                                        <tr>
+                                    <div style="border-top: 2px solid #1e5631;"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Patient Information Section -->
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <h5><strong>INFORMASI PASIEN</strong></h5>
+                                </div>
+                            </div>
+                            
+                            <!-- Patient data with bordered table -->
+                            <div class="row mb-4">
+                                <div class="col-9">
+                                    <table class="table table-sm table-bordered">
+                                        <tr class="bg-light">
                                             <td width="30%"><strong>Nomor RM</strong></td>
                                             <td width="2%">:</td>
-                                            <td><span t-field="pasien.no_rm"/></td>
+                                            <td><strong><span t-field="pasien.no_rm"/></strong></td>
                                         </tr>
                                         <tr>
                                             <td><strong>Nama Pasien</strong></td>
@@ -48,10 +74,32 @@
                                         </tr>
                                     </table>
                                 </div>
+                                <div class="col-3 text-center">
+                                    <!-- QR Code -->
+                                    <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', pasien.no_rm, 120, 120)" style="width:120px;height:120px;"/>
+                                    <p class="mt-1 mb-0"><small>Scan QR Code</small></p>
+                                </div>
                             </div>
-                            <div class="row">
+                            
+                            <!-- Notice box -->
+                            <div class="row mt-5">
                                 <div class="col-12">
-                                    <p class="text-muted"><i>* Harap simpan bukti pendaftaran ini dan tunjukkan saat berobat</i></p>
+                                    <div class="alert alert-info text-center" style="background-color: #f8f9fa; border: 1px solid #dee2e6; color: #000;">
+                                        <p class="m-0"><strong>* Harap simpan bukti pendaftaran ini dan tunjukkan saat berobat</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Footer with signature section -->
+                            <div class="row mt-5">
+                                <div class="col-8">
+                                    <!-- Terms or additional information -->
+                                    <p class="text-muted"><small>Dokumen ini diterbitkan secara elektronik dan sah tanpa tanda tangan</small></p>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <p>Petugas Pendaftaran</p>
+                                    <br/><br/><br/>
+                                    <p>___________________</p>
                                 </div>
                             </div>
                         </div>
