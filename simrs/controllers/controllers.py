@@ -39,23 +39,24 @@ class SimrsController(http.Controller):
             'alamat': alamat,
         })
         
-        # Menyimpan data pasien yang telah dibuat untuk ditampilkan di template sukses
-        pasien_name = pasien.name
-        no_rm = pasien.no_rm
-        tempat_lahir = pasien.tempat_lahir
-        pasien_dob = pasien.dob
-        pasien_age = pasien.age
-        pasien_gender = pasien.gender
-        registration_date = pasien.registration_date
+        # Simpan data ke session untuk keperluan cetak PDF
+        request.session['pasien_data'] = {
+            'no_rm': pasien.no_rm,
+            'nama': pasien.name,
+            'tempat_lahir': pasien.tempat_lahir,
+            'tanggal_lahir': pasien.dob,
+            'jenis_kelamin': pasien.gender,
+            'registration_date': str(pasien.registration_date)
+        }
         
         # Render template sukses dengan data pasien
         return request.render('simrs.success_template', {
-            'pasien_name': pasien_name,
-            'no_rm': no_rm,
-            'tempat_lahir': tempat_lahir,
-            'pasien_dob': pasien_dob,
+            'pasien_name': pasien.name,
+            'no_rm': pasien.no_rm,
+            'tempat_lahir': pasien.tempat_lahir,
+            'pasien_dob': pasien.dob,
             'pasien_age_detail': pasien.get_age_detail(),
-            'pasien_gender': pasien_gender,
+            'pasien_gender': pasien.gender,
             'registration_date': pasien.registration_date,
             'datetime_indonesia': pasien.datetime_indonesia,
         })
@@ -103,3 +104,37 @@ class SimrsController(http.Controller):
             json.dumps(result),
             content_type='application/json'
         )
+
+    @http.route('/print_registration_pdf', type='http', auth="public", website=True)
+    def print_registration_pdf(self, **kw):
+        try:
+            # Ambil data pasien
+            no_rm = kw.get('no_rm')
+            if not no_rm:
+                session_data = request.session.get('pasien_data', {})
+                no_rm = session_data.get('no_rm')
+            
+            if not no_rm:
+                return request.redirect('/pendaftaran')
+            
+            pasien = request.env['simrs.pasien'].sudo().search([('no_rm', '=', no_rm)], limit=1)
+            if not pasien:
+                return request.redirect('/pendaftaran')
+            
+            # Gunakan report yang sudah ada untuk generate PDF
+            report_name = 'simrs.report_pendaftaran_pdf_template'
+            pdf_content = request.env['ir.actions.report'].sudo()._render_qweb_pdf(report_name, [pasien.id])[0]
+            
+            pdfhttpheaders = [
+                ('Content-Type', 'application/pdf'),
+                ('Content-Length', len(pdf_content)),
+                ('Content-Disposition', f'attachment; filename="Bukti_Pendaftaran_{no_rm}.pdf"')
+            ]
+            
+            return request.make_response(pdf_content, headers=pdfhttpheaders)
+            
+        except Exception as e:
+            import logging
+            _logger = logging.getLogger(__name__)
+            _logger.error(f"Error saat mencetak PDF: {str(e)}")
+            return request.redirect('/pendaftaran?error=pdf_failed')
