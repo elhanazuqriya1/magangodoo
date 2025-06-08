@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
         <record id="pendaftaran_pdf_report" model="ir.actions.report">
@@ -16,11 +15,11 @@
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="pasien">
                     <t t-call="web.external_layout">
-                        <div class="page">
-                            <!-- Header with logo and timestamp -->
+                        <div class="page" style="font-family: 'Arial', sans-serif;">
+                            <!-- Header -->
                             <div class="row mb-4">
                                 <div class="col-6">
-                                    <h3 class="mt-2"><strong>BUKTI PENDAFTARAN PASIEN</strong></h3>
+                                    <h3 class="mt-2" style="color:#1abc9c;"><strong>BUKTI PENDAFTARAN PASIEN</strong></h3>
                                 </div>
                                 <div class="col-6 text-right">
                                     <small>No. Registrasi: <strong><span t-field="pasien.no_rm"/></strong></small><br/>
@@ -28,73 +27,69 @@
                                     <small>Waktu: <span t-field="pasien.create_date" t-options='{"format": "HH:mm:ss"}'/></small>
                                 </div>
                             </div>
-                            
-                            <!-- Divider -->
+
                             <div class="row">
                                 <div class="col-12">
-                                    <div style="border-top: 2px solid #1e5631;"></div>
+                                    <div style="border-top: 2px solid #1abc9c;"></div>
                                 </div>
                             </div>
-                            
-                            <!-- Patient Information Section -->
+
+                            <!-- Informasi Pasien -->
                             <div class="row mt-3">
                                 <div class="col-12">
-                                    <h5><strong>INFORMASI PASIEN</strong></h5>
+                                    <h5 style="color: #117a65;"><strong>INFORMASI PASIEN</strong></h5>
                                 </div>
                             </div>
-                            
-                            <!-- Patient data with bordered table -->
+
                             <div class="row mb-4">
                                 <div class="col-9">
-                                    <table class="table table-sm table-bordered">
-                                        <tr class="bg-light">
-                                            <td width="30%"><strong>Nomor RM</strong></td>
-                                            <td width="2%">:</td>
-                                            <td><strong><span t-field="pasien.no_rm"/></strong></td>
+                                    <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                                        <tr style="background-color: #d0f0f0;">
+                                            <td width="30%" style="padding: 6px 10px;"><strong>Nomor RM</strong></td>
+                                            <td width="2%" style="padding: 6px 10px;">:</td>
+                                            <td style="padding: 6px 10px;"><strong><span t-field="pasien.no_rm"/></strong></td>
                                         </tr>
-                                        <tr>
-                                            <td><strong>Nama Pasien</strong></td>
-                                            <td>:</td>
-                                            <td><span t-field="pasien.name"/></td>
+                                        <tr style="background-color: #f6ffff;">
+                                            <td style="padding: 6px 10px;"><strong>Nama Pasien</strong></td>
+                                            <td style="padding: 6px 10px;">:</td>
+                                            <td style="padding: 6px 10px;"><span t-field="pasien.name"/></td>
                                         </tr>
-                                        <tr>
-                                            <td><strong>Tanggal Lahir</strong></td>
-                                            <td>:</td>
-                                            <td><span t-field="pasien.dob"/></td>
+                                        <tr style="background-color: #e0f7fa;">
+                                            <td style="padding: 6px 10px;"><strong>Tanggal Lahir</strong></td>
+                                            <td style="padding: 6px 10px;">:</td>
+                                            <td style="padding: 6px 10px;"><span t-field="pasien.dob"/></td>
                                         </tr>
-                                        <tr>
-                                            <td><strong>Jenis Kelamin</strong></td>
-                                            <td>:</td>
-                                            <td><span t-field="pasien.gender"/></td>
+                                        <tr style="background-color: #f6ffff;">
+                                            <td style="padding: 6px 10px;"><strong>Jenis Kelamin</strong></td>
+                                            <td style="padding: 6px 10px;">:</td>
+                                            <td style="padding: 6px 10px;"><span t-field="pasien.gender"/></td>
                                         </tr>
-                                        <tr>
-                                            <td><strong>Tanggal Pendaftaran</strong></td>
-                                            <td>:</td>
-                                            <td><span t-field="pasien.create_date"/></td>
+                                        <tr style="background-color: #e0f7fa;">
+                                            <td style="padding: 6px 10px;"><strong>Tanggal Pendaftaran</strong></td>
+                                            <td style="padding: 6px 10px;">:</td>
+                                            <td style="padding: 6px 10px;"><span t-field="pasien.create_date"/></td>
                                         </tr>
                                     </table>
                                 </div>
                                 <div class="col-3 text-center">
-                                    <!-- QR Code -->
                                     <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', pasien.no_rm, 120, 120)" style="width:120px;height:120px;"/>
-                                    <p class="mt-1 mb-0"><small>Scan QR Code</small></p>
+                                    <p class="mt-1 mb-0" style="font-size: 10px;"><small>Scan QR Code</small></p>
                                 </div>
                             </div>
-                            
-                            <!-- Notice box -->
+
+                            <!-- Informasi Tambahan -->
                             <div class="row mt-5">
                                 <div class="col-12">
-                                    <div class="alert alert-info text-center" style="background-color: #f8f9fa; border: 1px solid #dee2e6; color: #000;">
+                                    <div class="alert alert-info text-center" style="background-color: #e8f8f5; border: 1px solid #d1eee9; color: #117a65;">
                                         <p class="m-0"><strong>* Harap simpan bukti pendaftaran ini dan tunjukkan saat berobat</strong></p>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- Footer with signature section -->
+
+                            <!-- Footer -->
                             <div class="row mt-5">
                                 <div class="col-8">
-                                    <!-- Terms or additional information -->
-                                    <p class="text-muted"><small>Dokumen ini diterbitkan secara elektronik dan sah tanpa tanda tangan</small></p>
+                                    <p class="text-muted" style="font-size: 10px;"><small>Dokumen ini diterbitkan secara elektronik dan sah tanpa tanda tangan</small></p>
                                 </div>
                                 <div class="col-4 text-center">
                                     <p>Petugas Pendaftaran</p>
