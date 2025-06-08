@@ -40,10 +40,16 @@
                         <span class="rs-value"><t t-esc="datetime_indonesia"/></span>
                     </div>
                 </div>
-                <a href="/pendaftaran" class="rs-btn-back">
-                    <span class="material-icons" style="vertical-align: middle;">arrow_back</span>
-                    Kembali ke Formulir Pendaftaran
-                </a>
+                <div class="rs-button-container">
+                    <a href="/pendaftaran" class="rs-btn-back">
+                        <span class="material-icons" style="vertical-align: middle;">arrow_back</span>
+                        Kembali ke Formulir Pendaftaran
+                    </a>
+                    <a t-att-href="'/print_registration_pdf?no_rm=' + no_rm" class="rs-btn-print">
+                        <span class="material-icons" style="vertical-align: middle;">picture_as_pdf</span>
+                        Cetak PDF
+                    </a>
+                </div>
                 <div class="rs-animasi-check">
                     <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
                         <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
@@ -169,6 +175,33 @@
                 color: #ffffff;
                 box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
             }
+            .rs-btn-print {
+                display: inline-block;
+                background: #1565c0; /* Warna biru untuk tombol cetak */
+                color: #ffffff;
+                padding: 12px 32px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 1rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+                text-align: center;
+            }
+            .rs-btn-print:hover {
+                background: #0d47a1; /* Warna biru lebih gelap saat hover */
+                color: #ffffff;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+            }
+            .rs-button-container {
+                display: flex;
+                gap: 12px;
+                margin-top: 8px;
+                margin-bottom: 8px;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
             .rs-animasi-check {
                 position: absolute;
                 top: -30px;
@@ -213,10 +246,14 @@
                 .rs-label, .rs-value {
                     font-size: 0.95rem;
                 }
-                .rs-btn-back {
+                .rs-btn-back, .rs-btn-print {
                     width: 100%;
                     padding: 10px 0;
                     font-size: 0.95rem;
+                }
+                .rs-button-container {
+                    flex-direction: column;
+                    gap: 8px;
                 }
                 .rs-animasi-check {
                     width: 60px;
