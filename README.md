@@ -1,4 +1,4 @@
-# 🎉 DOO SIMRS ADDONS 🎉
+# 🎉 ODOO SIMRS ADDONS 🎉
 Sistem Informasi Rumah Sakit berbasis Odoo
 
 ---
