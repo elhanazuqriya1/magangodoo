@@ -349,7 +349,7 @@
                             <input type="date" name="tanggal" class="form-control" required="1" t-att-value="default_date"/>
                         </div>
 
-                        <button type="submit" class="btn-submit">Daftar Sekarang</button>
+                        <button type="submit" class="btn-submit">Daftar Poli</button>
                     </form>
                 </div>
             </div>
