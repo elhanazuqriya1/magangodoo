@@ -7,7 +7,7 @@
                 <field name="pasien_id"/>
                 <field name="unit_id"/>
                 <field name="diagnosa_id"/>
-                <field name="dokter_id"/>
+                <field name="dokter_id" domain="[('unit_id', '=', unit_id)]"/>
                 <field name="tindakan_id"/>
                 <field name="catatan_id"/>
             </tree>
@@ -23,7 +23,7 @@
                     <field name="pasien_id"/>
                     <field name="unit_id"/>
                     <field name="diagnosa_id"/>
-                    <field name="dokter_id"/>
+                    <field name="dokter_id" domain="[('unit_id', '=', unit_id)]"/>
                     <field name="tindakan_id"/>
                     <field name="catatan_id"/>
                 </group>
