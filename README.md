@@ -54,7 +54,7 @@ Sistem Informasi Rumah Sakit berbasis Odoo
 
 ## 📝 Catatan Pengembangan
 
-- Setiap developer **WAJIB** melakukan `git pull` sebelum coding, dan segera `git push` setelah selesai atau ada perubahan.
+- Setiap dev **WAJIB** melakukan `git pull` sebelum coding, dan segera `git push` setelah selesai atau ada perubahan.
 - Dokumentasikan setiap fitur atau perubahan yang signifikan di commit message.
 
 ---
