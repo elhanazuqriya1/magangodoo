@@ -14,7 +14,6 @@ class Tindakan(models.Model):
     @api.onchange('pasien_id')
     def _onchange_pasien_id(self):
         if self.pasien_id:
-            # Cari semua unit (poli) yang pernah dikunjungi oleh pasien dari model pendaftaran
             unit_ids = self.env['simrs.pendaftaran'].search([
                 ('pasien_id', '=', self.pasien_id.id)
             ]).mapped('unit_id').ids
@@ -28,5 +27,20 @@ class Tindakan(models.Model):
             return {
                 'domain': {
                     'unit_id': []
+                }
+            }
+
+    @api.onchange('unit_id')
+    def _onchange_unit_id(self):
+        if self.unit_id:
+            return {
+                'domain': {
+                    'dokter_id': [('unit_id', '=', self.unit_id.id)]
+                }
+            }
+        else:
+            return {
+                'domain': {
+                    'dokter_id': []
                 }
             }
