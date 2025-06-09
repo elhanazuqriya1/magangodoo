@@ -1,0 +1,112 @@
+<odoo>
+    <data>
+        <!-- Report Action -->
+        <record id="pendaftaran_poli_pdf_report" model="ir.actions.report">
+            <field name="name">Bukti Pendaftaran Poli</field>
+            <field name="model">simrs.pendaftaran</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">simrs.report_daftarpoli_pdf_template</field>
+            <field name="report_file">simrs.report_daftarpoli_pdf_template</field>
+            <field name="print_report_name">'Bukti_Poli_%s' % (object.name)</field>
+            <field name="binding_model_id" ref="simrs.model_simrs_pendaftaran"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Report Template -->
+        <template id="report_daftarpoli_pdf_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="pendaftaran">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="font-family: 'Arial', sans-serif;">
+                            <!-- Header -->
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <h3 class="mt-2" style="color:#1abc9c;"><strong>BUKTI PENDAFTARAN POLI</strong></h3>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <small>No. Pendaftaran: <strong><span t-field="pendaftaran.name"/></strong></small><br/>
+                                    <small>Tanggal: <span t-field="pendaftaran.tanggal" t-options='{"format": "dd/MM/yyyy"}'/></small>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div style="border-top: 2px solid #1abc9c;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Informasi Pendaftaran -->
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <h5 style="color: #117a65;"><strong>DATA PENDAFTARAN PASIEN</strong></h5>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-9">
+                                    <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                                        <tr style="background-color: #d0f0f0;">
+                                            <td width="30%" style="padding: 6px 10px;"><strong>Nomor RM</strong></td>
+                                            <td width="2%" style="padding: 6px 10px;">:</td>
+                                            <td style="padding: 6px 10px;"><strong><span t-field="pendaftaran.no_rm"/></strong></td>
+                                        </tr>
+                                        <tr style="background-color: #f6ffff;">
+                                            <td style="padding: 6px 10px;"><strong>Nama Pasien</strong></td>
+                                            <td style="padding: 6px 10px;">:</td>
+                                            <td style="padding: 6px 10px;"><span t-field="pendaftaran.pasien_id.name"/></td>
+                                        </tr>
+                                        <tr style="background-color: #e0f7fa;">
+                                            <td style="padding: 6px 10px;"><strong>Poli / Unit</strong></td>
+                                            <td style="padding: 6px 10px;">:</td>
+                                            <td style="padding: 6px 10px;"><span t-field="pendaftaran.unit_id.name"/></td>
+                                        </tr>
+                                        <tr style="background-color: #f6ffff;">
+                                            <td style="padding: 6px 10px;"><strong>Dokter</strong></td>
+                                            <td style="padding: 6px 10px;">:</td>
+                                            <td style="padding: 6px 10px;"><span t-field="pendaftaran.dokter_id.name"/></td>
+                                        </tr>
+                                        <tr style="background-color: #e0f7fa;">
+                                            <td style="padding: 6px 10px;"><strong>Tanggal Kunjungan</strong></td>
+                                            <td style="padding: 6px 10px;">:</td>
+                                            <td style="padding: 6px 10px;"><span t-field="pendaftaran.tanggal"/></td>
+                                        </tr>
+                                        <tr style="background-color: #f6ffff;">
+                                            <td style="padding: 6px 10px;"><strong>Nomor Antrian</strong></td>
+                                            <td style="padding: 6px 10px;">:</td>
+                                            <td style="padding: 6px 10px;"><span t-field="pendaftaran.nomor_antrian"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-3 text-center">
+                                    <img t-att-src="'/report/barcode/?type=QR&amp;value=%s&amp;width=120&amp;height=120' % pendaftaran.name" style="width:120px;height:120px;"/>
+                                    <p class="mt-1 mb-0" style="font-size: 10px;"><small>Scan QR Code</small></p>
+                                </div>
+                            </div>
+
+                            <!-- Informasi Tambahan -->
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    <div class="alert alert-info text-center" style="background-color: #e8f8f5; border: 1px solid #d1eee9; color: #117a65;">
+                                        <p class="m-0"><strong>* Harap tunjukkan bukti ini saat ke loket pendaftaran di hari kunjungan</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="row mt-5">
+                                <div class="col-8">
+                                    <p class="text-muted" style="font-size: 10px;"><small>Dokumen ini diterbitkan secara elektronik dan sah tanpa tanda tangan</small></p>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <p>Petugas Pendaftaran</p>
+                                    <br/><br/><br/>
+                                    <p>___________________</p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
